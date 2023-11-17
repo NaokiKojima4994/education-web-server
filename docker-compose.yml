@@ -1,0 +1,18 @@
+version: '3.8'
+services:
+  spring-boot-app:
+    hostname: spring-boot-app
+    build: ./demo/
+    ports:
+      - "8080:8080"
+
+  apache:
+    build:
+      context: .
+      dockerfile: apache/Dockerfile
+    ports:
+      - "80:80"
+    depends_on:
+      - spring-boot-app
+    tty: true
+    stdin_open: true
