@@ -1,5 +1,5 @@
 # 基となるJavaイメージを指定
-FROM openjdk:11-jdk-slim as build
+FROM amazoncorretto:11.0.29 as build
 
 # ワークディレクトリを指定
 WORKDIR /workspace/app
@@ -14,7 +14,7 @@ COPY src src
 RUN ./mvnw install -DskipTests
 
 # 実行用のイメージを指定
-FROM openjdk:11-jdk-slim
+FROM amazoncorretto:11.0.29
 VOLUME /tmp
 COPY --from=build /workspace/app/target/*.jar app.jar
 ENTRYPOINT ["java","-jar","/app.jar"]
